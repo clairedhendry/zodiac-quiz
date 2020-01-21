@@ -137,7 +137,7 @@ function generateQuestion() {
 //<input type="radio" name="options" id="option4" value="3">
 //<label for="option4">$(question[i].option4)</label>
 
-questions.slice((...i, (i + 1)...);
+
 
 }
 
