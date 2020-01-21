@@ -104,6 +104,7 @@ $("button").on("click", function() {
     let startButton = document.querySelector(".start-button");
     title.remove();
     startButton.remove();
+    generateQuestion();
     }
 });
 
