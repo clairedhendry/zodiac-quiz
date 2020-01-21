@@ -128,14 +128,19 @@ $("button").on("click", function() {
 
 
 
-function generateQuestion() {
+function getRandomInt(num) {
+    let num = questions.length;
+    let i = Math.floor(Math.random() * Math.floor(num));
+    return i;
+}
+
+
+function generateQuestion(questions) {
+
+  let i = getRandomInt(num);
 //first trying to generate a fieldset element
 //legend is the question, pulled randomly from the questions array
-  let max = questions.length;
-
-  let i = function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
+ 
   let questionFieldset = document.createElement("FIELDSET");
   questionFieldset.setAttribute("class", "question");
   questionFieldset.innerText("$(questions[i].question)");
