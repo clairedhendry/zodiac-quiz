@@ -80,7 +80,7 @@ const questions = [
     option2: "Leo",
     option3: "Scorpio",
     option4: "Taurus",
-    answer: "Taurs",
+    answer: "Taurus",
   }
 ];
 
@@ -89,8 +89,8 @@ const questions = [
 //What needs to happen:
 //When the start button is green/opacity 1 and clicked, a question fieldset is generated
 //Questions are randomly selected from array, then sliced out --> array is copied first? 
-//Don't want to change original array
-//When answer is selected, check if correct
+//Don't want to change original array -- maybe create new array from remaining and use that -- repeat
+//When answer is selected, check if correct against questions[i].answer
 //If correct, congrats message
 //If wrong, different message
 //Generate next question fieldset
@@ -111,7 +111,6 @@ $("button").on("click", function() {
 
 // i grabs a random question from the array
 
-
 //Fieldset block should look like:
 //<legend class="question">$(questions[i].question)</legend>
 
@@ -127,14 +126,11 @@ $("button").on("click", function() {
 //<input type="radio" name="options" id="option4" value="3">
 //<label for="option4">$(question[i].option4)</label>
 
-
-
 function getRandomInt(num) {
     let num = questions.length;
     let i = Math.floor(Math.random() * Math.floor(num));
     return i;
 }
-
 
 function generateQuestion() {
 
