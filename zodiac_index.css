@@ -43,7 +43,7 @@ main > div.zodiac-title {
 }
 
 
-div fieldset {
+div form {
   width: 800px;
   display: flex;
   justify-content: flex-start;

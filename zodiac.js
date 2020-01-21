@@ -111,28 +111,9 @@ $("button").on("click", function() {
 // i grabs a random question from the array
 
 
-function generateQuestion() {
-
-  let max = questions.length;
-
-  let i = function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-  let questionFieldset = document.createElement("FIELDSET");
-  questionFieldset.setAttribute("class", "question");
-  var textNode = document.createTextNode("$(questions[i].question)");
-  questionFieldset.appendChild(textNode);
-  document.main.appendChild(questionFieldset);
-  
-  let input = document.main.createElement("input");
-  input.setAttribute("type", "radio");
-  input.setAttribute("name", "options");
-  input.setAttribute("id", "option1");
-  input.setAttribute("value", "0");
-  
-
 //Fieldset block should look like:
 //<legend class="question">$(questions[i].question)</legend>
+
 //<input type="radio" name="options" id="option1" value="0">
 //<label for="option1">$(question[i].option1)</label>
 //<br>
@@ -147,26 +128,46 @@ function generateQuestion() {
 
 
 
+function generateQuestion() {
+//first trying to generate a fieldset element
+//legend is the question, pulled randomly from the questions array
+  let max = questions.length;
+
+  let i = function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+  let questionFieldset = document.createElement("FIELDSET");
+  questionFieldset.setAttribute("class", "question");
+  questionFieldset.innerText("$(questions[i].question)");
+  document.main.appendChild(questionFieldset);
+  
+//then trying to populate with the options from the same object in the array
+ let input1 = document.main.createElement("input");
+  input.setAttribute("type", "radio");
+  input.setAttribute("name", "options");
+  input.setAttribute("id", "option1");
+  input.setAttribute("value", "0");
+  
 }
 
 
+//need to compare input selected with answer in array
+//if they match, move on to congrats screen
+//not a match, move on to wrong screen
+function correctOrNo() {
 
-// QUIZ EVENT HANDLERS
 
+}
 
 
 let counter = 0;
 //counter keeps track of current question number out of 10
 
 
-// if option selected === answer, congrats message
-// if not, other message
-// 
-function correctOrNo() {
 
-}
 
-// on click of congrats/wrong message, generates new fieldset, updates counter and displays
+// on click of congrats/wrong message, generates new fieldset, 
+// and displays count at bottom
 function nextQuestion() {
   counter++;
   //need to slice off previous question i from array
