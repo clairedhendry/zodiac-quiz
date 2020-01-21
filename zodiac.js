@@ -135,7 +135,7 @@ function getRandomInt(num) {
 }
 
 
-function generateQuestion(questions) {
+function generateQuestion() {
 
   let i = getRandomInt(num);
 //first trying to generate a fieldset element
@@ -160,8 +160,6 @@ function generateQuestion(questions) {
 //if they match, move on to congrats screen
 //not a match, move on to wrong screen
 function correctOrNo() {
-
-
 }
 
 
