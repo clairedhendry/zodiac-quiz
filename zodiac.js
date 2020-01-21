@@ -80,7 +80,7 @@ const questions = [
     option2: "Leo",
     option3: "Scorpio",
     option4: "Taurus",
-
+    answer: "Taurs",
   }
 ];
 
@@ -104,16 +104,11 @@ $("button").on("click", function() {
     let startButton = document.querySelector(".start-button");
     title.remove();
     startButton.remove();
-    generateQuestion();
-  }
+    }
 });
 
 
 // i grabs a random question from the array
-
-
-
-
 
 
 function generateQuestion() {
@@ -174,7 +169,9 @@ function correctOrNo() {
 // on click of congrats/wrong message, generates new fieldset, updates counter and displays
 function nextQuestion() {
   counter++;
+  //need to slice off previous question i from array
   generateQuestion();   
+  
 }
 
 
