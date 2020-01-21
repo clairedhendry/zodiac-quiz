@@ -111,17 +111,30 @@ $("button").on("click", function() {
 
 // i grabs a random question from the array
 
-let max = questions.length;
 
-let i = function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+
+
 
 
 function generateQuestion() {
-  let questionFieldset = document.createElement("FIELDSET");
 
-  document.main.appendChild(questionFieldset)
+  let max = questions.length;
+
+  let i = function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+  let questionFieldset = document.createElement("FIELDSET");
+  questionFieldset.setAttribute("class", "question");
+  var textNode = document.createTextNode("$(questions[i].question)");
+  questionFieldset.appendChild(textNode);
+  document.main.appendChild(questionFieldset);
+  
+  let input = document.main.createElement("input");
+  input.setAttribute("type", "radio");
+  input.setAttribute("name", "options");
+  input.setAttribute("id", "option1");
+  input.setAttribute("value", "0");
+  
 
 //Fieldset block should look like:
 //<legend class="question">$(questions[i].question)</legend>
