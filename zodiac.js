@@ -4,6 +4,7 @@
 
 // SPLASH SCREEN ANIMATIONS
 
+
 $('#Z').on({
     'click': function(){
         $('#Z').attr('src','gifs/Z.gif');
@@ -111,68 +112,61 @@ $("button").on("click", function() {
 
 // i grabs a random question from the array
 
-//Fieldset block should look like:
-//<legend class="question">$(questions[i].question)</legend>
-
-//<input type="radio" name="options" id="option1" value="0">
-//<label for="option1">$(question[i].option1)</label>
-//<br>
-//<input type="radio" name="options" id="option2" value="1">
-//<label for="option2">$(question[i].option2)</label>
-//<br>
-//<input type="radio" name="options" id="option3" value="2">
-//<label for="option3">$(question[i].option3)</label>
-//<br>
-//<input type="radio" name="options" id="option4" value="3">
-//<label for="option4">$(question[i].option4)</label>
-
-function getRandomInt(num) {
-    let num = questions.length;
-    let i = Math.floor(Math.random() * Math.floor(num));
-    return i;
-}
-
-function generateQuestion() {
-
-  let i = getRandomInt(num);
-//first trying to generate a fieldset element
-//legend is the question, pulled randomly from the questions array
- 
-  let questionFieldset = document.createElement("FIELDSET");
-  questionFieldset.setAttribute("class", "question");
-  questionFieldset.innerText("$(questions[i].question)");
-  document.main.appendChild(questionFieldset);
-  
-//then trying to populate with the options from the same object in the array
- let input1 = document.main.createElement("input");
-  input.setAttribute("type", "radio");
-  input.setAttribute("name", "options");
-  input.setAttribute("id", "option1");
-  input.setAttribute("value", "0");
-  
+const state = {
+  counter: "0",
+  correct: "0",
+  total: "10",
 }
 
 
-//need to compare input selected with answer in array
-//if they match, move on to congrats screen
-//not a match, move on to wrong screen
-function correctOrNo() {
+// GENERATE HTML
+
+
+function generateFrontPage() {
+return `<div class="zodiac-title">
+<img src="letters/Z.png" class="letters" id="Z" alt="letter Z"/>
+<img src="letters/O.png" class="letters" id="O" alt="letter O"/>
+<img src="letters/D.png" class="letters" id="D" alt="letter D"/>
+<img src="letters/I.png" class="letters" id="I" alt="letter I"/>
+<img src="letters/A.png" class="letters" id="A" alt="letter A"/>
+<img src="letters/C.png" class="letters" id="C" alt="letter C"/>
+</div>`;
 }
 
 
-let counter = 0;
-//counter keeps track of current question number out of 10
+function generateQuestion(question, option1, option2, option3, option4) {
+  return `<legend class="question">question</legend>
 
-
-
-
-// on click of congrats/wrong message, generates new fieldset, 
-// and displays count at bottom
-function nextQuestion() {
-  counter++;
-  //need to slice off previous question i from array
-  generateQuestion();   
-  
+    <input type="radio" name="options" id="option1" value="0">
+    <label for="option1">option1</label>
+    <br>
+    <input type="radio" name="options" id="option2" value="1">
+    <label for="option2">option2</label>
+    <br>
+    <input type="radio" name="options" id="option3" value="2">
+    <label for="option3">option3</label>
+    <br>
+    <input type="radio" name="options" id="option4" value="3">
+    <label for="option4">option4</label>`
 }
 
+// RENDER
 
+function renderFrontPage() {
+const front = generateFrontPage();
+document.main.appendChild(front);
+return front;
+}
+
+function renderQuestion(questions) {
+  let num = questions.length;
+  let i = Math.floor(Math.random() * Math.floor(num));
+  let question = `&{questions[i].question}`;
+  let option1 = `&{questions[i].option1}`;
+  let option2 = `&{questions[i].option2}`;
+  let option3 = `&{questions[i].option3}`;
+  let option4 = `&{questions[i].option4}`;
+  generateQuestion();
+}
+
+renderFrontPage();
