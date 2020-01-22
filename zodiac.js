@@ -172,13 +172,12 @@ function generateQuestion(question, option1, option2, option3, option4) {
 
 // RENDER
 
-/*function renderFrontPage() {
-  let front = document.createElement("div");
-  let content = generateQuestion();
-  front.append(content);
-  document.main.appendChild(front);
+function renderFrontPage() {
+  let front = generateFrontPage();
+  document.querySelector("main").innerHTML = front;
+}
   
-*/
+
 
 
 
@@ -192,5 +191,5 @@ function renderQuestion() {
   document.querySelector("main").innerHTML = returnedQuestion;
 } 
 
-
-renderQuestion();
+renderFrontPage();
+//renderQuestion();
