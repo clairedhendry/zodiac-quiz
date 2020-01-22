@@ -82,6 +82,30 @@ const questions = [
     option3: "Scorpio",
     option4: "Taurus",
     answer: "Taurus",
+  },
+  {
+    question: "What Zodiac's main traits are artistic and stubborn?",
+    option1: "Aries",
+    option2: "Leo",
+    option3: "Scorpio",
+    option4: "Taurus",
+    answer: "Taurus",
+  },
+  {
+    question: "What Zodiac's main traits are artistic and stubborn?",
+    option1: "Aries",
+    option2: "Leo",
+    option3: "Scorpio",
+    option4: "Taurus",
+    answer: "Taurus",
+  },
+  {
+    question: "What Zodiac's main traits are artistic and stubborn?",
+    option1: "Aries",
+    option2: "Leo",
+    option3: "Scorpio",
+    option4: "Taurus",
+    answer: "Taurus",
   }
 ];
 
@@ -99,15 +123,7 @@ const questions = [
 //Repeat until 10 questions are answered
 //Display final message based on number correct
 
-$("button").on("click", function() {
-  if ( ($("button").css("opacity")) === "1" ) {
-    let title = document.querySelector(".zodiac-title");
-    let startButton = document.querySelector(".start-button");
-    title.remove();
-    startButton.remove();
-    generateQuestion();
-    }
-});
+
 
 
 // i grabs a random question from the array
@@ -123,7 +139,7 @@ const state = {
 
 
 function generateFrontPage() {
-return `<div class="zodiac-title">
+  return `<div class="zodiac-title">
 <img src="letters/Z.png" class="letters" id="Z" alt="letter Z"/>
 <img src="letters/O.png" class="letters" id="O" alt="letter O"/>
 <img src="letters/D.png" class="letters" id="D" alt="letter D"/>
@@ -135,7 +151,10 @@ return `<div class="zodiac-title">
 
 
 function generateQuestion(question, option1, option2, option3, option4) {
-  return `<legend class="question">question</legend>
+  
+  return `
+    <fieldset>
+    <legend class="question">question</legend>
 
     <input type="radio" name="options" id="option1" value="0">
     <label for="option1">option1</label>
@@ -147,26 +166,31 @@ function generateQuestion(question, option1, option2, option3, option4) {
     <label for="option3">option3</label>
     <br>
     <input type="radio" name="options" id="option4" value="3">
-    <label for="option4">option4</label>`
+    <label for="option4">option4</label>
+    </fieldset>`
 }
 
 // RENDER
 
-function renderFrontPage() {
-const front = generateFrontPage();
-document.main.appendChild(front);
-return front;
-}
+/*function renderFrontPage() {
+  let front = document.createElement("div");
+  let content = generateQuestion();
+  front.append(content);
+  document.main.appendChild(front);
+  
+*/
 
-function renderQuestion(questions) {
-  let num = questions.length;
-  let i = Math.floor(Math.random() * Math.floor(num));
-  let question = `&{questions[i].question}`;
-  let option1 = `&{questions[i].option1}`;
-  let option2 = `&{questions[i].option2}`;
-  let option3 = `&{questions[i].option3}`;
-  let option4 = `&{questions[i].option4}`;
-  generateQuestion();
-}
 
-renderFrontPage();
+
+function renderQuestion() {
+  let question = questions[state.counter].question;
+  let option1 = questions[state.counter].option1;
+  let option2 = questions[state.counter].option2;
+  let option3 = questions[state.counter].option3;
+  let option4 = questions[state.counter].option4;
+  let returnedQuestion = generateQuestion();
+  document.querySelector("main").innerHTML = returnedQuestion;
+} 
+
+
+renderQuestion();
