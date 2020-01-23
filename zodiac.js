@@ -4,7 +4,7 @@
 
 // SPLASH SCREEN ANIMATIONS
 
-
+/*
 $('#Z').on({
     'click': function(){
         $('#Z').attr('src','gifs/Z.gif');
@@ -62,13 +62,13 @@ $('#C').on({
       };
     }
 });
+*/
 
-/*$(".letters").on("click", function() {
-  if ($(this) === document.querySelector("#Z")) {
-    $("#Z").attr("src", "gifs/Z.gif");
+$(".letters").on("click", function() {
+    $(this).attr("src", "gifs/Z.gif");
   }
-  
-});*/
+);  
+
 
 
 // DATA
@@ -212,11 +212,22 @@ function startQuiz() {
 }
 
 function checkAnswer() {
+  
   $("button").on("click", function() {
-    if ((questions[state.counter].answer))
+    let answer = questions[state.counter].answer;
+
+  //check if answer matches option selected
+    
   })
 }
 
+function checkInput(input) {
+  if (document.querySelector(input).checked === true) {
+    return input;
+  } else {
+    return null;
+  }
+}
 
 renderFrontPage();
 startQuiz();
