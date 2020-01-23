@@ -178,7 +178,13 @@ function generateQuestion(question, option1, option2, option3, option4) {
     </fieldset>`
 }
 
-// RENDER
+function nextQuestionButton() {
+  let nextButton = document.createElement("button");
+  let buttonText = document.createTextNode("SUBMIT");
+  nextButton.appendChild(buttonText);
+  document.querySelector("main").appendChild(nextButton);
+}
+
 
 function renderFrontPage() {
   let front = generateFrontPage();
@@ -196,5 +202,22 @@ function renderQuestion() {
   document.querySelector("main").innerHTML = returnedQuestion;
 } 
 
+function startQuiz() {
+  $(".start-button").on("click", function() {
+    let splashScreen = document.querySelector(".zodiac-title");
+    splashScreen.remove();
+    renderQuestion();
+    nextQuestionButton();  
+    });
+}
+
+function checkAnswer() {
+  $("button").on("click", function() {
+    if ((questions[state.counter].answer))
+  })
+}
+
+
 renderFrontPage();
-//renderQuestion();
+startQuiz();
+
