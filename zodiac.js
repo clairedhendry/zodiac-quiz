@@ -63,6 +63,13 @@ $('#C').on({
     }
 });
 
+/*$(".letters").on("click", function() {
+  if ($(this) === document.querySelector("#Z")) {
+    $("#Z").attr("src", "gifs/Z.gif");
+  }
+  
+});*/
+
 
 // DATA
 
@@ -84,28 +91,28 @@ const questions = [
     answer: "Taurus",
   },
   {
-    question: "What Zodiac's main traits are artistic and stubborn?",
-    option1: "Aries",
-    option2: "Leo",
+    question: "Which Zodiac is represented by the centaur?",
+    option1: "Pieces",
+    option2: "Sagittarius",
     option3: "Scorpio",
-    option4: "Taurus",
-    answer: "Taurus",
+    option4: "Gemini",
+    answer: "Sagittarius",
   },
   {
-    question: "What Zodiac's main traits are artistic and stubborn?",
-    option1: "Aries",
-    option2: "Leo",
+    question: "What Zodiac's main traits are being a fiercely strong leader?",
+    option1: "Leo",
+    option2: "Virgo",
     option3: "Scorpio",
     option4: "Taurus",
-    answer: "Taurus",
+    answer: "Leo",
   },
   {
-    question: "What Zodiac's main traits are artistic and stubborn?",
-    option1: "Aries",
-    option2: "Leo",
-    option3: "Scorpio",
-    option4: "Taurus",
-    answer: "Taurus",
+    question: "Which Zodiac is known for being very in touch with their emotions?",
+    option1: "Gemini",
+    option2: "Aquarius",
+    option3: "Aries",
+    option4: "Cancer",
+    answer: "Cancer",
   }
 ];
 
@@ -146,7 +153,8 @@ function generateFrontPage() {
 <img src="letters/I.png" class="letters" id="I" alt="letter I"/>
 <img src="letters/A.png" class="letters" id="A" alt="letter A"/>
 <img src="letters/C.png" class="letters" id="C" alt="letter C"/>
-</div>`;
+</div>
+<button class="start-button">BEGIN</button>`;
 }
 
 
@@ -177,9 +185,6 @@ function renderFrontPage() {
   document.querySelector("main").innerHTML = front;
 }
   
-
-
-
 
 function renderQuestion() {
   let question = questions[state.counter].question;
