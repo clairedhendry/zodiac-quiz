@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 // SPLASH SCREEN ANIMATIONS
 
 /*
@@ -126,10 +124,6 @@ const questions = [
 //Display final message based on number correct
 
 
-
-
-// i grabs a random question from the array
-
 const state = {
   counter: "0",
   correct: "0",
@@ -138,6 +132,45 @@ const state = {
 
 
 // GENERATE HTML
+
+const letterObj = [
+  {
+    name: "Z",
+    image: "url('letters/Z.svg')",
+    gif: "url('gifs/Z.gif')",
+    opacity: "0.2"
+  },
+  {
+    name: "O",
+    image: "url('letters/O.svg')",
+    gif: "url('gifs/O.gif')",
+    opacity: "0.4"
+  },
+  {
+    name: "D",
+    image: "url('letters/D.svg')",
+    gif: "url('gifs/D.gif')",
+    opacity: "0.6"
+  },
+  {
+    name: "I",
+    image: "url('letters/I.svg')",
+    gif: "url('gifs/I.gif')",
+    opacity: "0.8"
+  },
+  {
+    name: "A",
+    image: "url('letters/A.svg')",
+    gif: "url('gifs/A.gif')",
+    opacity: "0.9"
+  },
+  {
+    name: "C",
+    image: "url('letters/C')",
+    gif: "url('gifs/C.gif')",
+    opacity: "1"
+  }
+]
 
 const letters = [
   `url("letters/Z.png")`,
@@ -157,6 +190,8 @@ const gifs = [
   `url("gifs/C.gif")`
 ]
 
+const buttonValues = [0, 0.2, 0.4, 0.6, 0.8, 0.9, 1];
+
 function generateLetters() {
   let title = document.createElement("div");
   title.className = "title";
@@ -170,7 +205,6 @@ function generateLetters() {
 
 function renderFrontPage() {
   let title = generateLetters();
-
   document.querySelector("main").append(title);
 
 }
