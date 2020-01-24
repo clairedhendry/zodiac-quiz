@@ -73,6 +73,7 @@ $(".letters").on("click", function() {
 
 // DATA
 
+
 const questions = [
   {
     question: "What animal represents the Zodiac Cancer?",
@@ -144,8 +145,42 @@ const state = {
 
 // GENERATE HTML
 
+const letters = [
+  `url("letters/Z.png")`,
+  `url("letters/O.png")`,
+  `url("letters/D.png")`,
+  `url("letters/I.png")`,
+  `url("letters/A.png")`,
+  `url("letters/C.png")`
+];
 
-function generateFrontPage() {
+const gifs = [
+  `url("gifs/Z.gif")`,
+  `url("gifs/O.gif")`,
+  `url("gifs/D.gif")`,
+  `url("gifs/I.gif")`,
+  `url("gifs/A.gif")`,
+  `url("gifs/C.gif")`
+]
+
+function generateLetters(letters) {
+  let title = document.createElement("div");
+  title.className = "title";
+  for (let i = 0; i < 6; i++) {
+    let newLetter = document.createElement("div");
+    newLetter.className = "letter";
+    newLetter.style.backgroundImage = letters[i];
+    title.appendChild(newLetter);
+  } return title;
+}
+
+function renderFrontPage() {
+  let title = generateLetters();
+  document.querySelector("main").innerHTML = title;
+
+}
+
+/*function generateFrontPage() {
   return `<div class="zodiac-title">
 <img src="letters/Z.png" class="letters" id="Z" alt="letter Z"/>
 <img src="letters/O.png" class="letters" id="O" alt="letter O"/>
@@ -156,40 +191,36 @@ function generateFrontPage() {
 </div>
 <button class="start-button">BEGIN</button>`;
 }
-
+*/
 
 function generateQuestion(question, option1, option2, option3, option4) {
   
-  return `
-    <fieldset>
-    <legend class="question">question</legend>
-
-    <input type="radio" name="options" id="option1" value="0">
-    <label for="option1">option1</label>
-    <br>
-    <input type="radio" name="options" id="option2" value="1">
-    <label for="option2">option2</label>
-    <br>
-    <input type="radio" name="options" id="option3" value="2">
-    <label for="option3">option3</label>
-    <br>
-    <input type="radio" name="options" id="option4" value="3">
-    <label for="option4">option4</label>
-    </fieldset>`
-}
-
-function nextQuestionButton() {
-  let nextButton = document.createElement("button");
-  let buttonText = document.createTextNode("SUBMIT");
-  nextButton.appendChild(buttonText);
-  document.querySelector("main").appendChild(nextButton);
+  return `<div class="box question">
+            
+  <fieldset>
+      <legend class="question">question</legend>
+  
+      <input type="radio" name="options" id="option1" value="0">
+      <label for="option1">option1</label>
+      <br>
+      <input type="radio" name="options" id="option2" value="1">
+      <label for="option2">option2</label>
+      <br>
+      <input type="radio" name="options" id="option3" value="2">
+      <label for="option3">option3</label>
+      <br>
+      <input type="radio" name="options" id="option4" value="3">
+      <label for="option4">option4</label>
+  </fieldset>
+  <button class="button submit">SUBMIT</button>
+  </div> `
 }
 
 
-function renderFrontPage() {
+/*function renderFrontPage() {
   let front = generateFrontPage();
   document.querySelector("main").innerHTML = front;
-}
+}*/
   
 
 function renderQuestion() {
@@ -202,6 +233,36 @@ function renderQuestion() {
   document.querySelector("main").innerHTML = returnedQuestion;
 } 
 
+function generateCorrect() {
+  return `<div class="box correct">
+  <img class="icon"/>
+  <p>Correct!</p>
+  <button class="next">NEXT</button>
+</div>`
+}
+
+function generateIncorrect() {
+  return `<div class="box incorrect">
+  <img class="icon"/>
+  <p>Sorry, not quite!</p>
+  <button class="next">NEXT</button>
+</div>`
+}
+
+function generateCounter(counter, numberCorrect, total) {
+  return `<div class="counter">
+  <p>${counter} out of ${total}</p>
+  <p>${numberCorrect} correct</p>
+</div>`
+}
+
+function addToCounter() {
+  state.counter++;
+  return state.counter;
+}
+
+// HANDLERS
+
 function startQuiz() {
   $(".start-button").on("click", function() {
     let splashScreen = document.querySelector(".zodiac-title");
@@ -213,7 +274,7 @@ function startQuiz() {
 
 function checkAnswer() {
   
-  $("button").on("click", function() {
+  $(".submit").on("click", function() {
     let answer = questions[state.counter].answer;
 
   //check if answer matches option selected
@@ -229,6 +290,17 @@ function checkInput(input) {
   }
 }
 
+$(".next").on("click", function nextQuestion() {
+  addToCounter();
+  generateCounter(state.counter, state.correct, state.total);
+  renderQuestion();
+}
+);
+
+
+
+//let correct = generateCorrect();
+//document.querySelector("main").innerHTML = correct;
 renderFrontPage();
 startQuiz();
 

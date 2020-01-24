@@ -5,6 +5,7 @@
 :root {
   --main-bg-color: rgb(196, 196, 196);
   --main-txt-color: ;
+  --box-bg-color: rgb(237, 244, 245);
  
 }
 
@@ -14,38 +15,71 @@ body {
     background-color: var(--main-bg-color);
     padding: 0;
     margin: 0;
+       
 }   
 
 main {
  display: flex;
  flex-direction: column;
+ justify-content: center;
+ align-items: center;
  width: 100vh;
  height: 100vh;
- margin: auto;
+ margin-left: auto;
+ margin-right: auto;
   
 } 
 
-main > div.zodiac-title {
+.title {
+  display: flex;
+  width 100%;
+}
+
+.letter {
+  width: 150px;
+  height: 150px;
+}
+
+/*main > div.zodiac-title {
  display: flex;
  flex-direction: column;
+ 
 
 }
 .zodiac-title > img {
  width: 150px;
-}
+}*/
 
 main > fieldset {
-
+  
+  width: 500px;
+  height: 500px;
+  background-color: var(--box-bg-color);;
 }
 
 fieldset > input, label {
-  
+    
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+   width: 500px;
+   height: 500px;
+   
 }
 
 button {
-
+  margin-top: 50px;
   display: flex;
   text-align: center;
+  color: white;
+  border: black 2px solid;
+  border-radius: 4px;
+  background-color: gray;
+  padding: 3px 5px 3px 5px ;
 }
 
 footer {
@@ -67,7 +101,6 @@ footer {
     flex-direction: row;
     justify-content: center;
     height: 150px;
-    margin-top: 40%;
-    margin-bottom: 40px;
+    
   }
 }
