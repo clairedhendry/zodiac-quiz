@@ -64,12 +64,6 @@ $('#C').on({
 });
 */
 
-$(".letters").on("click", function() {
-    $(this).attr("src", "gifs/Z.gif");
-  }
-);  
-
-
 
 // DATA
 
@@ -184,8 +178,7 @@ function renderFrontPage() {
 $(".letter").on("click", function() {
   let indexNumber = $(this).index();
   let replacement = gifs[indexNumber];
-  let letter = $(this);
-  letter.style.backgroundImage = replacement;
+  $(this).attr("src", replacement);
 })
 
 /*function generateFrontPage() {
