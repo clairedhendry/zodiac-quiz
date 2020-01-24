@@ -163,7 +163,7 @@ const gifs = [
   `url("gifs/C.gif")`
 ]
 
-function generateLetters(letters) {
+function generateLetters() {
   let title = document.createElement("div");
   title.className = "title";
   for (let i = 0; i < 6; i++) {
@@ -176,9 +176,17 @@ function generateLetters(letters) {
 
 function renderFrontPage() {
   let title = generateLetters();
-  document.querySelector("main").innerHTML = title;
+
+  document.querySelector("main").append(title);
 
 }
+
+$(".letter").on("click", function() {
+  let indexNumber = $(this).index();
+  let replacement = gifs[indexNumber];
+  let letter = $(this);
+  letter.style.backgroundImage = replacement;
+})
 
 /*function generateFrontPage() {
   return `<div class="zodiac-title">
