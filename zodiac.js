@@ -195,6 +195,36 @@ function addToCounter() {
   return state.counter;
 }
 
+function generateCorrect() {
+  return `<div class="box correct">
+ <img class="icon"/>
+ <p>Correct!</p>
+ <button class="next">NEXT</button>
+</div>`
+}
+
+function generateIncorrect() {
+ return `<div class="box incorrect">
+ <img class="icon"/>
+ <p>Sorry, not quite!</p>
+ <button class="next">NEXT</button>
+</div>`
+}
+
+function renderCorrect() {
+  let questionBox = document.querySelector(".question");
+  questionBox.addClass("hidden");
+  let correct = generateCorrect();
+  document.querySelector("main").innerHTML = correct;
+}
+
+function renderIncorrect() {
+  let questionBox = document.querySelector(".question");
+  questionBox.addClass("hidden");
+  let incorrect = generateIncorrect();
+  document.querySelector("main").innerHTML = incorrect;
+}
+
 // HANDLERS
 
 function startQuiz() {
@@ -202,43 +232,19 @@ function startQuiz() {
     let splashScreen = document.querySelector(".zodiac-title");
     splashScreen.remove();
     renderQuestion();
-    //nextQuestionButton();  
-    });
+   });
 }
 
   
   $(".submit").on("click", function() {
     let answer = questions[state.counter].answer;
     let checkedAnswer = $("input[name='options']:checked").val();
-    let questionBox = document.querySelector(".question");
-      questionBox.remove();
     if (answer === checkedAnswer) {
-      //console.log("yep!");
-      let correct = generateCorrect();
-      return document.querySelector("main").innerHTML = correct;
+      renderCorrect();
     } else {
-      //console.log("nope!");
-      let incorrect = generateIncorrect();
-      return document.querySelector("main").innerHTML = incorrect;
+      renderIncorrect();;
     }
   })
-
-
-function generateCorrect() {
-   return `<div class="box correct">
-  <img class="icon"/>
-  <p>Correct!</p>
-  <button class="next">NEXT</button>
-</div>`
-}
-
-function generateIncorrect() {
-  return `<div class="box incorrect">
-  <img class="icon"/>
-  <p>Sorry, not quite!</p>
-  <button class="next">NEXT</button>
-</div>`
-}
 
 
 $(".next").on("click", function nextQuestion() {
