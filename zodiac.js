@@ -1,68 +1,4 @@
 "use strict";
-
-// SPLASH SCREEN ANIMATIONS
-
-/*
-$('#Z').on({
-    'click': function(){
-        $('#Z').attr('src','gifs/Z.gif');
-        $("button").fadeTo(500, 0.2);
-        $("button").css("background-color", "gray");
-        }
-     });
-
-$('#O').on({
-    'click': function(){
-        $('#O').attr('src','gifs/O.gif');
-        if (($("button").css("opacity")) >= 0.2) {
-        $("button").fadeTo(500, 0.4);
-        $("button").css("background-color", "gray");
-      };
-    }
-});
-
-$('#D').on({
-    'click': function(){
-        $('#D').attr('src','gifs/D.gif');
-        if (($("button").css("opacity")) >= 0.4) {
-        $("button").fadeTo(500, 0.6);
-        $("button").css("background-color", "gray");
-      };
-    }
-});
-
-$('#I').on({
-    'click': function(){
-        $('#I').attr('src','gifs/I.gif');
-        if (($("button").css("opacity")) >= 0.6) {
-        $("button").fadeTo(500, 0.8);
-        $("button").css("background-color", "gray");
-      };
-    }
-});
-
-$('#A').on({
-    'click': function(){
-        $('#A').attr('src','gifs/A.gif');
-        if (($("button").css("opacity")) >= 0.8) {
-        $("button").fadeTo(500, 0.9);
-        $("button").css("background-color", "gray");
-      }; 
-    }
-});
-
-$('#C').on({
-    'click': function(){
-        $('#C').attr('src','gifs/C.gif');
-        if (($("button").css("opacity")) >= 0.9) {
-        $("button").fadeTo(500, 1);
-        $("button").css("background-color", "green");
-      };
-    }
-});
-*/
-
-
 // DATA
 
 
@@ -109,21 +45,6 @@ const questions = [
   }
 ];
 
-// START
-
-//What needs to happen:
-//When the start button is green/opacity 1 and clicked, a question fieldset is generated
-//Questions are randomly selected from array, then sliced out --> array is copied first? 
-//Don't want to change original array -- maybe create new array from remaining and use that -- repeat
-//When answer is selected, check if correct against questions[i].answer
-//If correct, congrats message
-//If wrong, different message
-//Generate next question fieldset
-//Update counter and number of correct
-//Repeat until 10 questions are answered
-//Display final message based on number correct
-
-
 const state = {
   counter: "0",
   correct: "0",
@@ -131,91 +52,84 @@ const state = {
 }
 
 
-// GENERATE HTML
-
-const letterObj = [
+/*const letterObj = [
   {
     name: "Z",
     image: "url('letters/Z.svg')",
     gif: "url('gifs/Z.gif')",
-    opacity: "0.2"
+    opacity: "0.2",
+    color: "gray",
   },
   {
     name: "O",
     image: "url('letters/O.svg')",
     gif: "url('gifs/O.gif')",
-    opacity: "0.4"
+    opacity: "0.4",
+    color: "gray",
   },
   {
     name: "D",
     image: "url('letters/D.svg')",
     gif: "url('gifs/D.gif')",
-    opacity: "0.6"
+    opacity: "0.6",
+    color: "gray",
+
   },
   {
     name: "I",
     image: "url('letters/I.svg')",
     gif: "url('gifs/I.gif')",
-    opacity: "0.8"
+    opacity: "0.8",
+    color: "gray",
   },
   {
     name: "A",
     image: "url('letters/A.svg')",
     gif: "url('gifs/A.gif')",
-    opacity: "0.9"
+    opacity: "0.9",
+    color: "gray",
   },
   {
     name: "C",
-    image: "url('letters/C')",
+    image: "url('letters/C.svg')",
     gif: "url('gifs/C.gif')",
-    opacity: "1"
+    opacity: "1",
+    color: "rgb(25, 189, 25)",
   }
 ]
 
-const letters = [
-  `url("letters/Z.png")`,
-  `url("letters/O.png")`,
-  `url("letters/D.png")`,
-  `url("letters/I.png")`,
-  `url("letters/A.png")`,
-  `url("letters/C.png")`
-];
 
-const gifs = [
-  `url("gifs/Z.gif")`,
-  `url("gifs/O.gif")`,
-  `url("gifs/D.gif")`,
-  `url("gifs/I.gif")`,
-  `url("gifs/A.gif")`,
-  `url("gifs/C.gif")`
-]
-
-const buttonValues = [0, 0.2, 0.4, 0.6, 0.8, 0.9, 1];
-
-function generateLetters() {
+function generateFrontPage() {
   let title = document.createElement("div");
   title.className = "title";
   for (let i = 0; i < 6; i++) {
     let newLetter = document.createElement("div");
     newLetter.className = "letter";
-    newLetter.style.backgroundImage = letters[i];
+    newLetter.style.backgroundImage = letterObj[i].image;
     title.appendChild(newLetter);
-  } return title;
+  } 
+    return title;
+}
+
+function generateStartButton() {
+ return `<button class="start-button">BEGIN</button>`;
 }
 
 function renderFrontPage() {
-  let title = generateLetters();
+  
+  let title = generateFrontPage();
+  let button = generateStartButton();
   document.querySelector("main").append(title);
-
+  document.querySelector("main").innerHTML = button;
 }
 
 $(".letter").on("click", function() {
   let indexNumber = $(this).index();
-  let replacement = gifs[indexNumber];
-  $(this).attr("src", replacement);
-})
+  let letter = letterObj[indexNumber].gif;
+  $(this).css()
+})*/
 
-/*function generateFrontPage() {
+function generateFrontPage() {
   return `<div class="zodiac-title">
 <img src="letters/Z.png" class="letters" id="Z" alt="letter Z"/>
 <img src="letters/O.png" class="letters" id="O" alt="letter O"/>
@@ -226,36 +140,36 @@ $(".letter").on("click", function() {
 </div>
 <button class="start-button">BEGIN</button>`;
 }
-*/
+
 
 function generateQuestion(question, option1, option2, option3, option4) {
   
   return `<div class="box question">
             
   <fieldset>
-      <legend class="question">question</legend>
+      <legend class="question">${question}</legend>
   
-      <input type="radio" name="options" id="option1" value="0">
-      <label for="option1">option1</label>
+      <input type="radio" name="options" id="option1" value="${option1}">
+      <label for="option1">${option1}</label>
       <br>
-      <input type="radio" name="options" id="option2" value="1">
-      <label for="option2">option2</label>
+      <input type="radio" name="options" id="option2" value="${option2}">
+      <label for="option2">${option2}</label>
       <br>
-      <input type="radio" name="options" id="option3" value="2">
-      <label for="option3">option3</label>
+      <input type="radio" name="options" id="option3" value="${option3}">
+      <label for="option3">${option3}</label>
       <br>
-      <input type="radio" name="options" id="option4" value="3">
-      <label for="option4">option4</label>
+      <input type="radio" name="options" id="option4" value="${option4}">
+      <label for="option4">${option4}</label>
   </fieldset>
   <button class="button submit">SUBMIT</button>
   </div> `
 }
 
 
-/*function renderFrontPage() {
+function renderFrontPage() {
   let front = generateFrontPage();
   document.querySelector("main").innerHTML = front;
-}*/
+}
   
 
 function renderQuestion() {
@@ -264,25 +178,10 @@ function renderQuestion() {
   let option2 = questions[state.counter].option2;
   let option3 = questions[state.counter].option3;
   let option4 = questions[state.counter].option4;
-  let returnedQuestion = generateQuestion();
+  let returnedQuestion = generateQuestion(question, option1, option2, option3, option4);
   document.querySelector("main").innerHTML = returnedQuestion;
 } 
 
-function generateCorrect() {
-  return `<div class="box correct">
-  <img class="icon"/>
-  <p>Correct!</p>
-  <button class="next">NEXT</button>
-</div>`
-}
-
-function generateIncorrect() {
-  return `<div class="box incorrect">
-  <img class="icon"/>
-  <p>Sorry, not quite!</p>
-  <button class="next">NEXT</button>
-</div>`
-}
 
 function generateCounter(counter, numberCorrect, total) {
   return `<div class="counter">
@@ -303,27 +202,44 @@ function startQuiz() {
     let splashScreen = document.querySelector(".zodiac-title");
     splashScreen.remove();
     renderQuestion();
-    nextQuestionButton();  
+    //nextQuestionButton();  
     });
 }
 
-function checkAnswer() {
   
   $(".submit").on("click", function() {
     let answer = questions[state.counter].answer;
-
-  //check if answer matches option selected
-    
+    let checkedAnswer = $("input[name='options']:checked").val();
+    let questionBox = document.querySelector(".question");
+      questionBox.remove();
+    if (answer === checkedAnswer) {
+      //console.log("yep!");
+      let correct = generateCorrect();
+      return document.querySelector("main").innerHTML = correct;
+    } else {
+      //console.log("nope!");
+      let incorrect = generateIncorrect();
+      return document.querySelector("main").innerHTML = incorrect;
+    }
   })
+
+
+function generateCorrect() {
+   return `<div class="box correct">
+  <img class="icon"/>
+  <p>Correct!</p>
+  <button class="next">NEXT</button>
+</div>`
 }
 
-function checkInput(input) {
-  if (document.querySelector(input).checked === true) {
-    return input;
-  } else {
-    return null;
-  }
+function generateIncorrect() {
+  return `<div class="box incorrect">
+  <img class="icon"/>
+  <p>Sorry, not quite!</p>
+  <button class="next">NEXT</button>
+</div>`
 }
+
 
 $(".next").on("click", function nextQuestion() {
   addToCounter();
@@ -333,9 +249,5 @@ $(".next").on("click", function nextQuestion() {
 );
 
 
-
-//let correct = generateCorrect();
-//document.querySelector("main").innerHTML = correct;
 renderFrontPage();
 startQuiz();
-
