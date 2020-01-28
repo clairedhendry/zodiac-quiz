@@ -67,7 +67,10 @@ main > fieldset {
   background-color: var(--box-bg-color);;
 }
 
-
+.hidden {
+  display: none;
+}
+  
 
 .box.question {
   display: flex;

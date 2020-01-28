@@ -212,15 +212,13 @@ function generateIncorrect() {
 }
 
 function renderCorrect() {
-  let questionBox = document.querySelector(".question");
-  questionBox.addClass("hidden");
+  $(".question").addClass("hidden");
   let correct = generateCorrect();
   document.querySelector("main").innerHTML = correct;
 }
 
 function renderIncorrect() {
-  let questionBox = document.querySelector(".question");
-  questionBox.addClass("hidden");
+  $(".question").addClass("hidden");
   let incorrect = generateIncorrect();
   document.querySelector("main").innerHTML = incorrect;
 }
