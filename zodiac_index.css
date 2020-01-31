@@ -30,8 +30,8 @@ main {
  flex-direction: column;
  justify-content: center;
  align-items: center;
- width: 100vh;
- height: 100vh;
+ width: 100%;
+ height: 100%;
  margin-left: auto;
  margin-right: auto;
   
@@ -53,11 +53,17 @@ main {
 main > div.zodiac-title {
  display: flex;
  flex-direction: column;
- 
-
 }
-.zodiac-title > img {
- width: 150px;
+
+input[type="image"] {
+  width: 150px;;
+}
+
+input[type="image"]:focus {
+  outline: auto 2px Highlight;
+  outline: auto 5px -webkit-focus-ring-color;
+  z-index: 1;
+  
 }
 
 main > fieldset {
@@ -93,6 +99,10 @@ button {
   padding: 3px 5px 3px 5px ;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 footer {
     width: 100%;
     color: white;
@@ -101,7 +111,7 @@ footer {
     margin-top: 50px;
  }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 1000px) {
   main {
     display: flex;
     align-items: center;
@@ -115,3 +125,5 @@ footer {
     
   }
 }
+
+
