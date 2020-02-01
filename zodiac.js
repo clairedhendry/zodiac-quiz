@@ -21,7 +21,7 @@ const questions = [
   },
   {
     question: "Which Zodiac is represented by the centaur?",
-    option1: "Pieces",
+    option1: "Pisces",
     option2: "Sagittarius",
     option3: "Scorpio",
     option4: "Gemini",
@@ -127,9 +127,9 @@ const questions = [
 
 
 const state = {
-  counter: "0",
-  correct: "0",
-  total: "10",
+  counter: 0,
+  correct: 0,
+  total: 10,
 }
 
 
@@ -233,7 +233,7 @@ function getRandomIntInclusive(min, max) {
 
 
 function renderQuestion() {
- // let num = getRandomIntInclusive(0, (questions.length - 1));
+ //let num = getRandomIntInclusive(0, (questions.length - 1));
 
 
   let question = questions[state.counter].question;
@@ -243,6 +243,7 @@ function renderQuestion() {
   let option4 = questions[state.counter].option4;
   let returnedQuestion = generateQuestion(question, option1, option2, option3, option4);
   document.querySelector("main").innerHTML = returnedQuestion;
+
 
   // questions.splice(num, 1);
   // return questions;
@@ -284,14 +285,39 @@ function renderIncorrect() {
   document.querySelector("main").innerHTML = incorrect;
 }
 
-// FALLING IMAGES
+function generateEndPage(numberCorrect, total) {
+  if (numberCorrect >= 8) {
+    return `<div class="endPage">
+    <p>${numberCorrect} out of ${total}!</p>
+    <p>Excellent job!</p>
+    <br>
+    <p>You really know your stuff!</p> 
+  </div>`
+  } else if (numberCorrect >= 5 && numberCorrect < 8) {
+    return `<div class="endPage">
+    <p>${numberCorrect} out of ${total}!</p>
+    <p>Pretty good!</p>
+    <br>
+    <p>You definitely know some stuff!</p> 
+  </div>`
+  } else {
+    return `<div class="endPage">
+    <p>${numberCorrect} out of ${total}!</p>
+    <p>Kind of okay!</p>
+    <br>
+    <p>Looks like you need to brush up!</p> 
+  </div>`
+  }
+};
+
+
+//FALLING IMAGES
 
 function fallingImages() {
-  const DODGER = document.getElementById('dodger');
   const GAME = document.getElementById('game');
   const GAME_HEIGHT = 1000;
   const GAME_WIDTH = 2000;
-  const ROCKS = [];
+  const usedIcons = [];
   var gameInterval = null;
   
   
@@ -307,26 +333,24 @@ function fallingImages() {
     `url("icons/capricorn.svg")`,
     ]
          
-  function createRock(x, y) {
-    const rock = document.createElement('div');
-    rock.style.backgroundImage = ICONS[y];
-    rock.className = 'rock';
-    rock.style.left = `${x}px`;
-    var top2 = rock.style.top = 0;
-    GAME.appendChild(rock);
+  function createIcon(x, y) {
+    const icon = document.createElement('div');
+    icon.style.backgroundImage = ICONS[y];
+    icon.className = 'icon';
+    icon.style.left = `${x}px`;
+    var top2 = icon.style.top = 0;
+    GAME.appendChild(icon);
    
-    function moveRock() {
-      
-       rock.style.top = `${top2+=2}px`;
+    function moveIcon() {
+        icon.style.top = `${top2+=2}px`;
         if (top2 < GAME_HEIGHT){
-         window.requestAnimationFrame(moveRock);
+         window.requestAnimationFrame(moveIcon);
        } else {
-         rock.remove();
+         icon.remove();
        }}
- 
-    window.requestAnimationFrame(moveRock);
-    ROCKS.push(rock);
-    return rock;
+    window.requestAnimationFrame(moveIcon);
+    usedIcons.push(icon);
+    return icon;
   }
  
   function positionToInteger(p) {
@@ -334,9 +358,8 @@ function fallingImages() {
   }
   
   function start() {
-    
-    gameInterval = setInterval(function() {
-      createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)), (Math.floor(Math.random() * 12) + 1))
+      gameInterval = setInterval(function() {
+      createIcon(Math.floor(Math.random() *  (GAME_WIDTH - 20)), (Math.floor(Math.random() * 12) + 1))
     }, 500)
   }
   
@@ -350,6 +373,8 @@ function startQuiz() {
     let splashScreen = document.querySelector(".zodiac-title");
     splashScreen.remove();
     renderQuestion();
+    let counter = generateCounter(state.counter, state.correct, state.total);
+    $("main").append(counter); 
    });
 }
 
@@ -366,30 +391,56 @@ function animateLetters() {
  function submitAnswer() {
 
   $("body").on("click", ".submit", function(event) {
+    
     let answer = questions[state.counter].answer;
     let checkedAnswer = $("input[name='options']:checked").val();
     if (answer === checkedAnswer) {
       renderCorrect();
-      fallingImages();
     } else {
       renderIncorrect();;
+    }
+    
+  });
+}
+
+function endQuiz() {
+    let endPage = generateEndPage(state.correct, state.total);
+    $("fieldset").remove();
+    $("button").remove();
+    $("main").append(endPage);
+    state.counter = "0";
+    let tryAgain = `<button id="again">AGAIN</button>`;
+    $("main").append(tryAgain);
+}
+
+function nextQuestion() {
+  $("body").on("click", ".next", function(event) {
+    if (state.counter === state.total) {
+      endQuiz();
+    } else {
+  state.counter++;
+  renderQuestion();
+  let counter = generateCounter(state.counter, state.correct, state.total);
+  $("main").append(counter); 
     }
   });
 }
 
-
-function nextQuestion() {
-  $("body").on("click", ".next", function(event) {
-  state.counter++;
-  generateCounter(state.counter, state.correct, state.total);
-  renderQuestion();
+function tryAgain() {
+  $("body").on("click", "button#again", function(event) {
+    $(".endPage").remove();
+    $("button#again").remove();
+    renderFrontPage()
+    startQuiz();
+    animateLetters();
+  })
 }
-);
-}
 
-renderFrontPage();
-startQuiz();
 
+$(renderFrontPage);
+$(startQuiz);
+
+$(tryAgain);
 $(submitAnswer);
 $(nextQuestion);
 $(animateLetters);
