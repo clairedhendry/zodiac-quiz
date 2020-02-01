@@ -284,6 +284,65 @@ function renderIncorrect() {
   document.querySelector("main").innerHTML = incorrect;
 }
 
+// FALLING IMAGES
+
+function fallingImages() {
+  const DODGER = document.getElementById('dodger');
+  const GAME = document.getElementById('game');
+  const GAME_HEIGHT = 1000;
+  const GAME_WIDTH = 2000;
+  const ROCKS = [];
+  var gameInterval = null;
+  
+  
+  const ICONS = [
+    `url("icons/aquarius.svg")`,
+    `url("icons/aries.svg")`,
+    `url("icons/taurus.svg")`,
+    `url("icons/gemini.svg")`,
+    `url("icons/leo.svg")`,
+    `url("icons/virgo.svg")`,
+    `url("icons/libra.svg")`,
+    `url("icons/scorpio.svg")`,
+    `url("icons/capricorn.svg")`,
+    ]
+         
+  function createRock(x, y) {
+    const rock = document.createElement('div');
+    rock.style.backgroundImage = ICONS[y];
+    rock.className = 'rock';
+    rock.style.left = `${x}px`;
+    var top2 = rock.style.top = 0;
+    GAME.appendChild(rock);
+   
+    function moveRock() {
+      
+       rock.style.top = `${top2+=2}px`;
+        if (top2 < GAME_HEIGHT){
+         window.requestAnimationFrame(moveRock);
+       } else {
+         rock.remove();
+       }}
+ 
+    window.requestAnimationFrame(moveRock);
+    ROCKS.push(rock);
+    return rock;
+  }
+ 
+  function positionToInteger(p) {
+    return parseInt(p.split('px')[0]) || 0
+  }
+  
+  function start() {
+    
+    gameInterval = setInterval(function() {
+      createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)), (Math.floor(Math.random() * 12) + 1))
+    }, 500)
+  }
+  
+  start();
+  }
+
 // HANDLERS
 
 function startQuiz() {
@@ -311,6 +370,7 @@ function animateLetters() {
     let checkedAnswer = $("input[name='options']:checked").val();
     if (answer === checkedAnswer) {
       renderCorrect();
+      fallingImages();
     } else {
       renderIncorrect();;
     }
