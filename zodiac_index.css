@@ -37,6 +37,21 @@ main {
   
 } 
 
+#game {
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+
+
 .title {
   display: flex;
   width: 100%;
@@ -59,12 +74,12 @@ input[type="image"] {
   width: 150px;;
 }
 
-input[type="image"]:focus {
+/* input[type="image"]:focus {
   outline: auto 2px Highlight;
   outline: auto 5px -webkit-focus-ring-color;
   z-index: 1;
   
-}
+} */
 
 main > fieldset {
   

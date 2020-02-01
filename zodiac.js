@@ -221,6 +221,7 @@ function generateQuestion(question, option1, option2, option3, option4) {
 
 
 function renderFrontPage() {
+  $("#game").addClass("hidden");
   let front = generateFrontPage();
   document.querySelector("main").innerHTML = front;
 }
@@ -258,7 +259,6 @@ function generateCounter(counter, numberCorrect, total) {
 
 function generateCorrect() {
   return `<div class="box correct">
- <img class="icon"/>
  <p>Correct!</p>
  <button class="next">NEXT</button>
 </div>`
@@ -266,7 +266,6 @@ function generateCorrect() {
 
 function generateIncorrect() {
  return `<div class="box incorrect">
- <img class="icon"/>
  <p>Sorry, not quite!</p>
  <button class="next">NEXT</button>
 </div>`
@@ -407,10 +406,13 @@ function endQuiz() {
     let endPage = generateEndPage(state.correct, state.total);
     $("fieldset").remove();
     $("button").remove();
+    $("div.box").remove();
     $("main").append(endPage);
+    $("#game").removeClass("hidden");
     state.counter = "0";
     let tryAgain = `<button id="again">AGAIN</button>`;
     $("main").append(tryAgain);
+    //fallingImages();
 }
 
 function nextQuestion() {
@@ -433,6 +435,7 @@ function tryAgain() {
     renderFrontPage()
     startQuiz();
     animateLetters();
+    
   })
 }
 
