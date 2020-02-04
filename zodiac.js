@@ -4,6 +4,7 @@
 
 const questions = [
   {
+    id: "q1",
     question: "What animal represents the Zodiac Cancer?",
     option1: "Lion",
     option2: "Crab",
@@ -12,6 +13,7 @@ const questions = [
     answer: "Crab",
   },
   {
+    id: "q2",
     question: "What Zodiac's main traits are artistic and stubborn?",
     option1: "Aries",
     option2: "Leo",
@@ -20,6 +22,7 @@ const questions = [
     answer: "Taurus",
   },
   {
+    id: "q3",
     question: "Which Zodiac is represented by the centaur?",
     option1: "Pisces",
     option2: "Sagittarius",
@@ -28,6 +31,7 @@ const questions = [
     answer: "Sagittarius",
   },
   {
+    id: "q4",
     question: "What Zodiac's main traits are being a fiercely strong leader?",
     option1: "Leo",
     option2: "Virgo",
@@ -36,6 +40,7 @@ const questions = [
     answer: "Leo",
   },
   {
+    id: "q5",
     question: "Which Zodiac is known for being very in touch with their emotions?",
     option1: "Gemini",
     option2: "Aquarius",
@@ -43,7 +48,8 @@ const questions = [
     option4: "Cancer",
     answer: "Cancer",
   },
-    {
+  {
+    id: "q6",
     question: "If your birthday is January 1st, what is your Zodiac sign?",
     option1: "Virgo",
     option2: "Sagittarius",
@@ -52,6 +58,7 @@ const questions = [
     answer: "Capricorn",
   },
   {
+    id: "q7",
     question: "What Zodiac's main traits are charming and witty?",
     option1: "Capricorn",
     option2: "Gemini",
@@ -60,6 +67,7 @@ const questions = [
     answer: "Capricorn",
   },
   {
+    id: "q8",
     question: "How many Zodiac signs are there?",
     option1: "6",
     option2: "12",
@@ -68,60 +76,40 @@ const questions = [
     answer: "12",
   },
   {
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    answer: "",
+    id: "q9",
+    question: "What time of the year does the Zodiac Scorpio occur?",
+    option1: "Spring",
+    option2: "Summer",
+    option3: "Fall",
+    option4: "Winter",
+    answer: "Fall",
   },
   {
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    answer: "",
+    id: "q10",
+    question: "What sign starts the Zodiac cycle?",
+    option1: "Aquarius",
+    option2: "Aries",
+    option3: "Gemini",
+    option4: "Libra",
+    answer: "Aries",
+  },
+  { 
+    id: "q11",
+    question: "What Zodiac's main traits are stable and fair?",
+    option1: "Cancer",
+    option2: "Pisces",
+    option3: "Virgo",
+    option4: "Libra",
+    answer: "Libra",
   },
   {
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    answer: "",
-  },
-  {
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    answer: "",
-  },
-  {
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    answer: "",
-  },
-  {
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    answer: "",
-  },
-  {
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    answer: "",
+    id: "q12",
+    question: "What animal represents the Zodiac Pisces?",
+    option1: "Fish",
+    option2: "Lion",
+    option3: "Bull",
+    option4: "Ram",
+    answer: "Fish",
   },
 ];
 
@@ -201,12 +189,12 @@ function renderFrontPage() {
   document.querySelector("main").innerHTML = front;
 }
   
-function generateQuestion(question, option1, option2, option3, option4) {
+function generateQuestion(id, question, option1, option2, option3, option4) {
   
   return `<div class="box question">
   
   <form>
-  <fieldset>
+  <fieldset id="${id}>
       <legend class="question"></legend>
       <div>
       <span class="question">${question}</span>
@@ -230,20 +218,18 @@ function generateQuestion(question, option1, option2, option3, option4) {
   </div> `
 }
 
-function renderQuestion() {
- //let num = getRandomIntInclusive(0, (questions.length - 1));
 
+function renderQuestion() {
+ 
+  let id = questions[state.counter].id;
   let question = questions[state.counter].question;
   let option1 = questions[state.counter].option1;
   let option2 = questions[state.counter].option2;
   let option3 = questions[state.counter].option3;
   let option4 = questions[state.counter].option4;
-  let returnedQuestion = generateQuestion(question, option1, option2, option3, option4);
+  let returnedQuestion = generateQuestion(id, question, option1, option2, option3, option4);
   document.querySelector("main").innerHTML = returnedQuestion;
 
-
-  // questions.splice(num, 1);
-  // return questions;
 } 
 
 // function getRandomIntInclusive(min, max) {
@@ -252,6 +238,9 @@ function renderQuestion() {
 //   return Math.floor(Math.random() * (max - min + 1)) + min;
 // }
 
+// function generateRandomNumber() {
+//   return getRandomIntInclusive(0, (questions.length - 1));
+// }
 
 
 function generateCounter(counter, numberCorrect, total) {
@@ -315,6 +304,18 @@ function generateEndPage(numberCorrect, total) {
   }
 };
 
+function endQuiz() {
+  let endPage = generateEndPage(state.correct, state.total);
+  $("fieldset").remove();
+  $("button").remove();
+  $("div.box").remove();
+  $("main").append(endPage);
+  $("#game").removeClass("hidden");
+  let tryAgain = `<button id="again">AGAIN</button>`;
+  $("main").append(tryAgain);
+  //fallingImages();
+}
+
 
 //FALLING IMAGES
 
@@ -373,6 +374,7 @@ function generateEndPage(numberCorrect, total) {
 //   start();
 //   }
 
+
 // HANDLERS
 
 function startQuiz() {
@@ -385,20 +387,16 @@ function startQuiz() {
    });
 }
 
-
 function animateLetters() {
   $(".letters").on("click", function(event) {
     const indexNumber = $(this).index();
     const letter = letterObj[indexNumber].gif;
     $(this).attr("src", letter);
   });
-  }
+}
   
-  
- function submitAnswer() {
-
+function submitAnswer() {
   $("body").on("click", ".submit", function(event) {
-    
     let answer = questions[state.counter].answer;
     let checkedAnswer = $("input[name='options']:checked").val();
     if (answer === checkedAnswer) {
@@ -406,25 +404,12 @@ function animateLetters() {
     } else {
       renderIncorrect();;
     }
-    
   });
-}
-
-function endQuiz() {
-    let endPage = generateEndPage(state.correct, state.total);
-    $("fieldset").remove();
-    $("button").remove();
-    $("div.box").remove();
-    $("main").append(endPage);
-    $("#game").removeClass("hidden");
-    let tryAgain = `<button id="again">AGAIN</button>`;
-    $("main").append(tryAgain);
-    //fallingImages();
 }
 
 function nextQuestion() {
   $("body").on("click", ".next", function(event) {
-    if (state.counter === state.total) {
+    if ((state.counter + 1) === state.total) {
       endQuiz();
     } else {
   state.counter++;
@@ -444,7 +429,6 @@ function tryAgain() {
     renderFrontPage()
     startQuiz();
     animateLetters();
-    
   })
 }
 
