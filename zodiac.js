@@ -127,7 +127,7 @@ const questions = [
 
 
 const state = {
-  counter: 0,
+  counter: 1,
   correct: 0,
   total: 10,
 }
@@ -181,12 +181,12 @@ const letterObj = [
 
 function generateFrontPage() {
   return `<div class="zodiac-title">
-<input type="image" src="letters/Z.png" class="letters" id="Z" alt="letter Z"/>
-<input type="image" src="letters/O.png" class="letters" id="O" alt="letter O"/>
-<input type="image" src="letters/D.png" class="letters" id="D" alt="letter D"/>
-<input type="image" src="letters/I.png" class="letters" id="I" alt="letter I"/>
-<input type="image" src="letters/A.png" class="letters" id="A" alt="letter A"/>
-<input type="image" src="letters/C.png" class="letters" id="C" alt="letter C"/>
+<input type="image" src="letters/Z.svg" class="letters" id="Z" alt="letter Z"/>
+<input type="image" src="letters/O.svg" class="letters" id="O" alt="letter O"/>
+<input type="image" src="letters/D.svg" class="letters" id="D" alt="letter D"/>
+<input type="image" src="letters/I.svg" class="letters" id="I" alt="letter I"/>
+<input type="image" src="letters/A.svg" class="letters" id="A" alt="letter A"/>
+<input type="image" src="letters/C.svg" class="letters" id="C" alt="letter C"/>
 </div>
 <button class="start-button">BEGIN</button>`;
 }
@@ -409,7 +409,6 @@ function endQuiz() {
     $("div.box").remove();
     $("main").append(endPage);
     $("#game").removeClass("hidden");
-    state.counter = "0";
     let tryAgain = `<button id="again">AGAIN</button>`;
     $("main").append(tryAgain);
     //fallingImages();
@@ -432,6 +431,8 @@ function tryAgain() {
   $("body").on("click", "button#again", function(event) {
     $(".endPage").remove();
     $("button#again").remove();
+    state.counter = 0;
+    state.correct = 0;
     renderFrontPage()
     startQuiz();
     animateLetters();
@@ -439,11 +440,13 @@ function tryAgain() {
   })
 }
 
+function implementQuiz() {
+renderFrontPage();
+startQuiz();
+tryAgain();
+submitAnswer();
+nextQuestion();
+animateLetters();
+}
 
-$(renderFrontPage);
-$(startQuiz);
-
-$(tryAgain);
-$(submitAnswer);
-$(nextQuestion);
-$(animateLetters);
+$(implementQuiz);
