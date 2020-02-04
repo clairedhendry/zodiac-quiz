@@ -111,6 +111,44 @@ const questions = [
     option4: "Ram",
     answer: "Fish",
   },
+  {
+    id: "q13",
+    question: "If you were born on the March 1, what is your Zodiac sign?",
+    option1: "Aries",
+    option2: "Capricorn",
+    option3: "Aquarius",
+    option4: "Pisces",
+    answer: "Pisces",
+  },
+  {
+    id: "q14",
+    question: "If you were born on September 1, what is your Zodiac sign?",
+    option1: "Libra",
+    option2: "Scorpio",
+    option3: "Virgo",
+    option4: "Leo",
+    answer: "Virgo",
+  },
+  {
+    id: "q15",
+    question: "If you were born on December 1, what is your Zodiac sign?",
+    option1: "Sagittarius",
+    option2: "Scorpio",
+    option3: "Capricorn",
+    option4: "Aquarius",
+    answer: "Sagittarius",
+  },
+  {
+    id: "q16",
+    question: "What are the main traits of Gemini?",
+    option1: "artistic and stubborn",
+    option2: "adaptable and impulsive",
+    option3: "free-minded and easy-going",
+    option4: "aggressive and strong",
+    answer: "adaptable and impulsive",
+  },
+  
+
 ];
 
 
@@ -194,7 +232,7 @@ function generateQuestion(id, question, option1, option2, option3, option4) {
   return `<div class="box question">
   
   <form>
-  <fieldset id="${id}>
+  <fieldset id="${id}">
       <legend class="question"></legend>
       <div>
       <span class="question">${question}</span>
@@ -220,27 +258,45 @@ function generateQuestion(id, question, option1, option2, option3, option4) {
 
 
 function renderQuestion() {
- 
-  let id = questions[state.counter].id;
-  let question = questions[state.counter].question;
-  let option1 = questions[state.counter].option1;
-  let option2 = questions[state.counter].option2;
-  let option3 = questions[state.counter].option3;
-  let option4 = questions[state.counter].option4;
+  let randomNum = getRandomIntInclusive(0, (questions.length - 1));
+
+  let id = questions[randomNum].id;
+  let question = questions[randomNum].question;
+  let option1 = questions[randomNum].option1;
+  let option2 = questions[randomNum].option2;
+  let option3 = questions[randomNum].option3;
+  let option4 = questions[randomNum].option4;
   let returnedQuestion = generateQuestion(id, question, option1, option2, option3, option4);
   document.querySelector("main").innerHTML = returnedQuestion;
 
 } 
 
-// function getRandomIntInclusive(min, max) {
-//   min = Math.ceil(min);
-//   max = Math.floor(max);
-//   return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-// function generateRandomNumber() {
-//   return getRandomIntInclusive(0, (questions.length - 1));
-// }
+function findId(questionId) {
+  return questions.filter(questions => questions.id === questionId)
+}
+
+function findObj() {
+  const getId = $("fieldset").attr("id");
+  return findId(getId);
+}
+
+function getQuestionIndex() {
+  const item = findObj();
+  const getId = $("fieldset").attr("id");
+  return questions.findIndex(item => item.id === getId);
+}
+
+function findSelectedAnswer() {
+  const gettingAnswer = findObj();
+  const answerToCheck = gettingAnswer[0].answer;
+  return answerToCheck;
+}
 
 
 function generateCounter(counter, numberCorrect, total) {
@@ -265,10 +321,11 @@ function renderCorrect() {
 }
 
 function generateIncorrect() {
+  let answer = findSelectedAnswer();
  return `<div class="box incorrect">
  <p>Sorry, not quite!</p>
  <br>
- <p>The answer was: ${questions[state.counter].answer}</p>
+ <p>The answer was: ${answer}</p>
  <button class="next">NEXT</button>
 </div>`
 }
@@ -397,14 +454,18 @@ function animateLetters() {
   
 function submitAnswer() {
   $("body").on("click", ".submit", function(event) {
-    let answer = questions[state.counter].answer;
+    let answer = findSelectedAnswer();
     let checkedAnswer = $("input[name='options']:checked").val();
+    const objToRemove = getQuestionIndex();
+    
     if (answer === checkedAnswer) {
       renderCorrect();
     } else {
       renderIncorrect();;
     }
-  });
+    
+    questions.splice(objToRemove, 1);
+    });
 }
 
 function nextQuestion() {
@@ -413,6 +474,7 @@ function nextQuestion() {
       endQuiz();
     } else {
   state.counter++;
+
   renderQuestion();
   let counter = generateCounter(state.counter, state.correct, state.total);
   $("main").append(counter); 
@@ -422,23 +484,24 @@ function nextQuestion() {
 
 function tryAgain() {
   $("body").on("click", "button#again", function(event) {
-    $(".endPage").remove();
-    $("button#again").remove();
     state.counter = 0;
     state.correct = 0;
-    renderFrontPage()
-    startQuiz();
-    animateLetters();
-  })
+    
+    location.reload();
+
+   
+  }) 
+  
 }
 
 function implementQuiz() {
 renderFrontPage();
 startQuiz();
-tryAgain();
 submitAnswer();
 nextQuestion();
 animateLetters();
+tryAgain();
 }
 
 $(implementQuiz);
+
