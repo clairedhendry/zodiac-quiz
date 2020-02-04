@@ -126,13 +126,6 @@ const questions = [
 ];
 
 
-const state = {
-  counter: 1,
-  correct: 0,
-  total: 10,
-}
-
-
 const letterObj = [
   {
     name: "Z",
@@ -179,23 +172,40 @@ const letterObj = [
   }
 ]
 
+//STATE
+
+const state = {
+  counter: 0,
+  correct: 0,
+  total: 10,
+}
+
+//FUNCTIONS
+
 function generateFrontPage() {
   return `<div class="zodiac-title">
-<input type="image" src="letters/Z.svg" class="letters" id="Z" alt="letter Z"/>
-<input type="image" src="letters/O.svg" class="letters" id="O" alt="letter O"/>
-<input type="image" src="letters/D.svg" class="letters" id="D" alt="letter D"/>
-<input type="image" src="letters/I.svg" class="letters" id="I" alt="letter I"/>
-<input type="image" src="letters/A.svg" class="letters" id="A" alt="letter A"/>
-<input type="image" src="letters/C.svg" class="letters" id="C" alt="letter C"/>
+<input type="image" src="letters/Z.png" class="letters" id="Z" alt="letter Z"/>
+<input type="image" src="letters/O.png" class="letters" id="O" alt="letter O"/>
+<input type="image" src="letters/D.png" class="letters" id="D" alt="letter D"/>
+<input type="image" src="letters/I.png" class="letters" id="I" alt="letter I"/>
+<input type="image" src="letters/A.png" class="letters" id="A" alt="letter A"/>
+<input type="image" src="letters/C.png" class="letters" id="C" alt="letter C"/>
 </div>
 <button class="start-button">BEGIN</button>`;
 }
 
 
+function renderFrontPage() {
+  $("#game").addClass("hidden");
+  let front = generateFrontPage();
+  document.querySelector("main").innerHTML = front;
+}
+  
 function generateQuestion(question, option1, option2, option3, option4) {
   
   return `<div class="box question">
-            
+  
+  <form>
   <fieldset>
       <legend class="question"></legend>
       <div>
@@ -215,27 +225,13 @@ function generateQuestion(question, option1, option2, option3, option4) {
       <label for="option4">${option4}</label>
       </div>
   </fieldset>
+  </form>
   <button class="button submit">SUBMIT</button>
   </div> `
 }
 
-
-function renderFrontPage() {
-  $("#game").addClass("hidden");
-  let front = generateFrontPage();
-  document.querySelector("main").innerHTML = front;
-}
-  
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
 function renderQuestion() {
  //let num = getRandomIntInclusive(0, (questions.length - 1));
-
 
   let question = questions[state.counter].question;
   let option1 = questions[state.counter].option1;
@@ -250,9 +246,17 @@ function renderQuestion() {
   // return questions;
 } 
 
+// function getRandomIntInclusive(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
+
+
+
 function generateCounter(counter, numberCorrect, total) {
   return `<div class="counter">
-  <p>${counter} out of ${total}</p>
+  <p>${counter + 1} out of ${total}</p>
   <p>${numberCorrect} correct</p>
 </div>`
 }
@@ -264,18 +268,20 @@ function generateCorrect() {
 </div>`
 }
 
-function generateIncorrect() {
- return `<div class="box incorrect">
- <p>Sorry, not quite!</p>
- <button class="next">NEXT</button>
-</div>`
-}
-
 function renderCorrect() {
   $(".question").addClass("hidden");
   let correct = generateCorrect();
   document.querySelector("main").innerHTML = correct;
   state.correct++;
+}
+
+function generateIncorrect() {
+ return `<div class="box incorrect">
+ <p>Sorry, not quite!</p>
+ <br>
+ <p>The answer was: ${questions[state.counter].answer}</p>
+ <button class="next">NEXT</button>
+</div>`
 }
 
 function renderIncorrect() {
@@ -312,58 +318,60 @@ function generateEndPage(numberCorrect, total) {
 
 //FALLING IMAGES
 
-function fallingImages() {
-  const GAME = document.getElementById('game');
-  const GAME_HEIGHT = 1000;
-  const GAME_WIDTH = 2000;
-  const usedIcons = [];
-  var gameInterval = null;
+//for when the quiz is finished
+
+// function fallingImages() {
+//   const GAME = document.getElementById('game');
+//   const GAME_HEIGHT = 1000;
+//   const GAME_WIDTH = 2000;
+//   const usedIcons = [];
+//   var gameInterval = null;
   
   
-  const ICONS = [
-    `url("icons/aquarius.svg")`,
-    `url("icons/aries.svg")`,
-    `url("icons/taurus.svg")`,
-    `url("icons/gemini.svg")`,
-    `url("icons/leo.svg")`,
-    `url("icons/virgo.svg")`,
-    `url("icons/libra.svg")`,
-    `url("icons/scorpio.svg")`,
-    `url("icons/capricorn.svg")`,
-    ]
+//   const ICONS = [
+//     `url("icons/aquarius.svg")`,
+//     `url("icons/aries.svg")`,
+//     `url("icons/taurus.svg")`,
+//     `url("icons/gemini.svg")`,
+//     `url("icons/leo.svg")`,
+//     `url("icons/virgo.svg")`,
+//     `url("icons/libra.svg")`,
+//     `url("icons/scorpio.svg")`,
+//     `url("icons/capricorn.svg")`,
+//     ]
          
-  function createIcon(x, y) {
-    const icon = document.createElement('div');
-    icon.style.backgroundImage = ICONS[y];
-    icon.className = 'icon';
-    icon.style.left = `${x}px`;
-    var top2 = icon.style.top = 0;
-    GAME.appendChild(icon);
+//   function createIcon(x, y) {
+//     const icon = document.createElement('div');
+//     icon.style.backgroundImage = ICONS[y];
+//     icon.className = 'icon';
+//     icon.style.left = `${x}px`;
+//     var top2 = icon.style.top = 0;
+//     GAME.appendChild(icon);
    
-    function moveIcon() {
-        icon.style.top = `${top2+=2}px`;
-        if (top2 < GAME_HEIGHT){
-         window.requestAnimationFrame(moveIcon);
-       } else {
-         icon.remove();
-       }}
-    window.requestAnimationFrame(moveIcon);
-    usedIcons.push(icon);
-    return icon;
-  }
+//     function moveIcon() {
+//         icon.style.top = `${top2+=2}px`;
+//         if (top2 < GAME_HEIGHT){
+//          window.requestAnimationFrame(moveIcon);
+//        } else {
+//          icon.remove();
+//        }}
+//     window.requestAnimationFrame(moveIcon);
+//     usedIcons.push(icon);
+//     return icon;
+//   }
  
-  function positionToInteger(p) {
-    return parseInt(p.split('px')[0]) || 0
-  }
+//   function positionToInteger(p) {
+//     return parseInt(p.split('px')[0]) || 0
+//   }
   
-  function start() {
-      gameInterval = setInterval(function() {
-      createIcon(Math.floor(Math.random() *  (GAME_WIDTH - 20)), (Math.floor(Math.random() * 12) + 1))
-    }, 500)
-  }
+//   function start() {
+//       gameInterval = setInterval(function() {
+//       createIcon(Math.floor(Math.random() *  (GAME_WIDTH - 20)), (Math.floor(Math.random() * 12) + 1))
+//     }, 500)
+//   }
   
-  start();
-  }
+//   start();
+//   }
 
 // HANDLERS
 

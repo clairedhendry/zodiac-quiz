@@ -57,7 +57,7 @@ main {
   width: 100%;
 }
 
-.letter {
+.letters {
   width: 150px;
   height: 150px;
   background-repeat: no-repeat;
@@ -73,13 +73,6 @@ main > div.zodiac-title {
 input[type="image"] {
   width: 150px;;
 }
-
-/* input[type="image"]:focus {
-  outline: auto 2px Highlight;
-  outline: auto 5px -webkit-focus-ring-color;
-  z-index: 1;
-  
-} */
 
 main > fieldset {
   
