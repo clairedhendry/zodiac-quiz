@@ -222,14 +222,14 @@ function generateFrontPage() {
 
 
 function renderFrontPage() {
-  $("#game").addClass("hidden");
+  // $("#game").addClass("hidden");
   let front = generateFrontPage();
   document.querySelector("main").innerHTML = front;
 }
   
 function generateQuestion(id, question, option1, option2, option3, option4) {
   
-  return `<div class="box question">
+  return `<div class="box">
   
   <form>
   <fieldset id="${id}">
@@ -308,7 +308,7 @@ function generateCounter(counter, numberCorrect, total) {
 
 function generateCorrect() {
   return `<div class="box correct">
- <p>Correct!</p>
+ <p><strong>Correct!</stonrg></p>
  <button class="next">NEXT</button>
 </div>`
 }
@@ -322,10 +322,10 @@ function renderCorrect() {
 
 function generateIncorrect() {
   let answer = findSelectedAnswer();
- return `<div class="box incorrect">
+ return `<div class="box incorrect ">
  <p>Sorry, not quite!</p>
  <br>
- <p>The answer was: ${answer}</p>
+ <p>The answer was: <em>${answer}</em></p>
  <button class="next">NEXT</button>
 </div>`
 }
@@ -338,7 +338,7 @@ function renderIncorrect() {
 
 function generateEndPage(numberCorrect, total) {
   if (numberCorrect >= 8) {
-    return `<div class="endPage">
+    return `<div class="box endPage">
     <p>${numberCorrect} out of ${total}!</p>
     <p>Excellent job!</p>
     <br>
@@ -370,67 +370,8 @@ function endQuiz() {
   $("#game").removeClass("hidden");
   let tryAgain = `<button id="again">AGAIN</button>`;
   $("main").append(tryAgain);
-  //fallingImages();
-}
-
-
-//FALLING IMAGES
-
-//for when the quiz is finished
-
-// function fallingImages() {
-//   const GAME = document.getElementById('game');
-//   const GAME_HEIGHT = 1000;
-//   const GAME_WIDTH = 2000;
-//   const usedIcons = [];
-//   var gameInterval = null;
-  
-  
-//   const ICONS = [
-//     `url("icons/aquarius.svg")`,
-//     `url("icons/aries.svg")`,
-//     `url("icons/taurus.svg")`,
-//     `url("icons/gemini.svg")`,
-//     `url("icons/leo.svg")`,
-//     `url("icons/virgo.svg")`,
-//     `url("icons/libra.svg")`,
-//     `url("icons/scorpio.svg")`,
-//     `url("icons/capricorn.svg")`,
-//     ]
-         
-//   function createIcon(x, y) {
-//     const icon = document.createElement('div');
-//     icon.style.backgroundImage = ICONS[y];
-//     icon.className = 'icon';
-//     icon.style.left = `${x}px`;
-//     var top2 = icon.style.top = 0;
-//     GAME.appendChild(icon);
-   
-//     function moveIcon() {
-//         icon.style.top = `${top2+=2}px`;
-//         if (top2 < GAME_HEIGHT){
-//          window.requestAnimationFrame(moveIcon);
-//        } else {
-//          icon.remove();
-//        }}
-//     window.requestAnimationFrame(moveIcon);
-//     usedIcons.push(icon);
-//     return icon;
-//   }
  
-//   function positionToInteger(p) {
-//     return parseInt(p.split('px')[0]) || 0
-//   }
-  
-//   function start() {
-//       gameInterval = setInterval(function() {
-//       createIcon(Math.floor(Math.random() *  (GAME_WIDTH - 20)), (Math.floor(Math.random() * 12) + 1))
-//     }, 500)
-//   }
-  
-//   start();
-//   }
-
+}
 
 // HANDLERS
 
@@ -486,7 +427,7 @@ function tryAgain() {
   $("body").on("click", "button#again", function(event) {
     state.counter = 0;
     state.correct = 0;
-    
+
     location.reload();
 
    

@@ -6,63 +6,42 @@
   --main-bg-color: rgb(196, 196, 196);
   --main-txt-color: ;
   --box-bg-color: rgb(237, 244, 245);
- 
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+ body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
     background-color: var(--main-bg-color);
+    height: 100%;
     padding: 0;
-    margin: 0;
+    margin: 0; 
   }   
 
-.background {
-  width: 100%;
-  height: 100vh;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: flex;
-}
-
 main {
+ position: absolute;
  display: flex;
  flex-direction: column;
  justify-content: center;
  align-items: center;
  width: 100%;
- height: 100%;
+ height: auto;
  margin-left: auto;
  margin-right: auto;
-  
+ margin-bottom: auto;
+ margin-top: 100px;
+ padding: 40px;
+ min-width: 250px;
 } 
 
-#game {
-  height: 100vh;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
-
-.icon {
-  width: 100px;
-  height: 100px;
-  position: absolute;
-}
-
-
-.title {
-  display: flex;
-  width: 100%;
-}
-
 .letters {
-  width: 150px;
-  height: 150px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  
+  margin: 5px;
 }
 
 main > div.zodiac-title {
@@ -71,34 +50,58 @@ main > div.zodiac-title {
 }
 
 input[type="image"] {
-  width: 150px;;
+  width: 80px;;
 }
 
-main > fieldset {
-  
-  width: 500px;
-  height: 500px;
-  background-color: var(--box-bg-color);;
+form {
+  background-color: lightgray;
+  border-radius: 4px;
+  border: 2px solid gray;
+}
+
+.box {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+fieldset {
+  padding: 15px;
+  padding-top: 0;
+  width: 100%;
+  border-width: 0;
+  min-height: 200px;
+  line-height: 150%;
+  text-align: left;
+}
+
+fieldset > div {
+  margin-top: 20px;
+  }
+
+ .box.question {
+  margin: 50px; 
+  max-width: 500px;
+}  
+
+.correct, .incorrect {
+  text-align: center;
+  align-items: center;
+}
+
+.endPage {
+  text-align: center;
 }
 
 .hidden {
   display: none;
 }
   
-
-.box.question {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-   width: 500px;
-   height: 500px;
-   
-}
-
 button {
   margin-top: 50px;
   display: flex;
+  align-self: center;
   text-align: center;
   color: white;
   border: black 2px solid;
@@ -111,7 +114,15 @@ button:hover {
   cursor: pointer;
 }
 
+button.submit {
+  display: flex;
+  text-align: center;
+  align-self:  center;
+}
+
 footer {
+  position: fixed;
+  bottom: 0;
     width: 100%;
     color: white;
     text-align: center;
@@ -119,18 +130,29 @@ footer {
     margin-top: 50px;
  }
 
-@media screen and (min-width: 1000px) {
+ .counter {
+   margin-top: 30px;
+   text-align: center;
+ }
+
+@media screen and (min-width: 800px) {
+
   main {
-    display: flex;
-    align-items: center;
+    position: absolute;
+    margin-top: 150px;
     
   }
+
   main > div.zodiac-title {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 150px;
-    
+    width: 100%;
+  }
+
+  input[type="image"] {
+    width: 120px;
+    height: 120px;
   }
 }
 
